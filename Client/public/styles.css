@@ -1,0 +1,589 @@
+:root {
+    /* Color Palette - Modern startup blue theme */
+    --primary: #4F46E5;
+    /* Indigo 600 */
+    --primary-dark: #4338CA;
+    --primary-light: #EEF2FF;
+
+    --bg-app: #F3F4F6;
+    --bg-surface: #FFFFFF;
+
+    --text-main: #111827;
+    --text-sub: #6B7280;
+
+    --msg-me: #4F46E5;
+    --msg-them: #F3F4F6;
+
+    /* Spacing */
+    --header-height: 64px;
+    --input-height: 72px;
+
+    /* Radius */
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-pill: 9999px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-float: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Reset & Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-app);
+    color: var(--text-main);
+    height: 100vh;
+    overflow: hidden;
+    /* Prevent body scroll, container handles it */
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Layout Container */
+.app-container {
+    width: 100%;
+    height: 100%;
+    max-width: 500px;
+    /* Slimmer for mobile feel */
+    margin: 0 auto;
+    background: var(--bg-surface);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: var(--shadow-float);
+    overflow: hidden;
+    /* Important for glass effect edges */
+
+    @media (min-width: 501px) {
+        border-radius: 20px;
+        height: 90vh;
+        max-height: 900px;
+        margin-top: 5vh;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* ---------------- HEADER ---------------- */
+header {
+    height: var(--header-height);
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    z-index: 100;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    width: 36px;
+    height: 36px;
+    background: var(--primary);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.status-display {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 8px;
+    border-radius: var(--radius-pill);
+    background: var(--bg-app);
+    color: var(--text-sub);
+    white-space: nowrap;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Status colors handled by JS adding classes usually, but we have default disconnect text */
+/* If JS adds 'connected' class to textElement, this would need logic, 
+   but current JS updates ID partnerName content and classList */
+#partnerName.connected {
+    color: var(--success);
+    background: rgba(52, 199, 89, 0.1);
+}
+
+#partnerName.connecting {
+    color: var(--warning);
+    background: rgba(255, 204, 0, 0.1);
+}
+
+.status-indicator {
+    color: var(--text-sub);
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.status-indicator.connected {
+    color: var(--success);
+}
+
+.status-indicator.disconnected {
+    color: var(--error);
+}
+
+.status-indicator.connecting {
+    color: var(--warning);
+}
+
+.btn-next {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-pill);
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-next:hover {
+    background: var(--primary-light);
+}
+
+.btn-next:active {
+    transform: scale(0.96);
+}
+
+.btn-next:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: var(--text-sub);
+    color: var(--text-sub);
+}
+
+
+/* ---------------- SCREENS ---------------- */
+.screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding-top: var(--header-height);
+    /* Offset fixed header */
+}
+
+/* WELCOME SCREEN */
+.welcome-screen {
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 40px;
+    animation: fadeIn 0.4s ease;
+}
+
+.welcome-card {
+    width: 90%;
+    max-width: 340px;
+    text-align: center;
+    padding: 20px;
+}
+
+.welcome-card h2 {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: -webkit-linear-gradient(45deg, var(--primary), #00A8E8);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+    color: var(--text-sub);
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    outline: none;
+    transition: all 0.2s;
+    background: var(--bg-app);
+}
+
+.input-group input:focus {
+    border-color: var(--primary);
+    background: var(--white);
+    border-color: var(--primary);
+    background: var(--white);
+    box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: transform 0.1s;
+    box-shadow: 0 4px 6px rgba(0, 122, 255, 0.25);
+}
+
+.btn-primary:active {
+    transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+    background: var(--text-sub);
+    cursor: not-allowed;
+}
+
+.connection-pill {
+    margin-top: 30px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--bg-app);
+    border-radius: var(--radius-pill);
+    font-size: 13px;
+    color: var(--text-sub);
+}
+
+.pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--error);
+}
+
+/* CHAT SCREEN */
+/* CHAT SCREEN */
+.chat-screen {
+    position: relative;
+    background: var(--bg-surface);
+    /* Subtle pattern or gradient if desired, keeping clean for now */
+}
+
+/* Main Chat Area - #messages */
+.messages-container {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    padding-bottom: 90px;
+    /* Space for input + typing */
+    background: var(--bg-app);
+    scroll-behavior: smooth;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-sub);
+}
+
+.empty-state h3 {
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+/* Message Bubbles */
+/* Message Bubbles */
+.message {
+    max-width: 75%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.5;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    animation: slideUp 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    word-wrap: break-word;
+}
+
+.message.me {
+    align-self: flex-end;
+    background: var(--msg-me);
+    color: white;
+    border-bottom-right-radius: 2px;
+}
+
+.message.them {
+    align-self: flex-start;
+    background: var(--msg-them);
+    color: var(--text-main);
+    border-bottom-left-radius: 2px;
+}
+
+.message-timestamp {
+    display: block;
+    font-size: 10px;
+    margin-top: 4px;
+    opacity: 0.7;
+    text-align: right;
+}
+
+/* Typing Indicator */
+.typing-bubble {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    z-index: 50;
+    background: var(--msg-them);
+    padding: 12px 16px;
+    border-radius: var(--radius-lg);
+    border-bottom-left-radius: 2px;
+    display: inline-flex;
+    gap: 4px;
+    box-shadow: var(--shadow-sm);
+}
+
+.typing-bubble .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--text-sub);
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.typing-bubble .dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-bubble .dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+/* Scroll Button */
+.scroll-btn {
+    position: absolute;
+    bottom: 90px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    transition: transform 0.2s;
+}
+
+.scroll-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* Input Bar */
+.input-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--input-height);
+    background: white;
+    border-top: 1px solid var(--border);
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    z-index: 60;
+}
+
+.input-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.input-container input {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: var(--bg-app);
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.input-container input:focus {
+    border-color: var(--primary);
+    background: white;
+}
+
+.btn-send {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.1s;
+    font-size: 16px;
+}
+
+.btn-send:hover {
+    transform: scale(1.05);
+}
+
+.btn-send:active {
+    transform: scale(0.95);
+}
+
+.btn-send:disabled {
+    background: var(--border);
+    cursor: default;
+}
+
+/* Validations provided by JS often set red border directly or via class */
+/* JS logic adds 'border-color: var(--error-color)' inline, so we should map var */
+/* We defined --error above, so it should work if we rely on JS setting style, 
+   but JS uses specific variable names that might not match mine. 
+   Checking existing styles.css... it had --error-color: #ff3b30. 
+   I used --error. I should add --error-color alias to be safe with inline styles?
+   Actually JS uses: usernameInput.style.borderColor = 'var(--error-color)';
+   So I MUST define --error-color.
+*/
+
+:root {
+    /* Alias for JS compatibility */
+    --error-color: #ff3b30;
+    --success-color: #34c759;
+    --text-secondary: #6b7280;
+    /* JS uses this for char counter */
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* Responsive Tweaks */
+@media (max-width: 480px) {
+    .app-container {
+        max-width: 100%;
+        height: 100vh;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    header {
+        padding: 0 12px;
+    }
+
+    .welcome-card h2 {
+        font-size: 22px;
+    }
+
+    /* Ensure input bar accommodates safe areas on mobile */
+    .input-bar {
+        padding-bottom: max(10px, env(safe-area-inset-bottom));
+        height: auto;
+        min-height: var(--input-height);
+        align-items: center;
+        padding-top: 10px;
+    }
+
+    .input-container {
+        gap: 8px;
+    }
+
+    .message {
+        font-size: 14px;
+        padding: 8px 12px;
+        max-width: 85%;
+    }
+
+    .btn-next {
+        font-size: 12px;
+        padding: 6px 10px;
+    }
+}

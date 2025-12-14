@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnonChat</title>
+    <link rel="stylesheet" href="styles.css?v=4">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header>
+            <div class="brand">
+                <div class="logo-icon"><i class="fas fa-comment-dots"></i></div>
+                <h1>AnonChat</h1>
+            </div>
+            <div class="header-actions">
+                <span id="partnerName" class="status-display">Disconnected</span>
+                <button id="nextBtn" class="btn-next">
+                    Next <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Welcome Screen -->
+        <div id="usernameScreen" class="screen welcome-screen">
+            <div class="welcome-card">
+                <h2>Welcome to AnonChat</h2>
+                <p class="subtitle">Chat anonymously with random people</p>
+
+                <div class="input-group">
+                    <input id="usernameInput" type="text" placeholder="Enter your display name" autocomplete="off">
+                </div>
+
+                <button id="startBtn" class="btn-primary">Start Chatting</button>
+
+                <div class="connection-pill">
+                    <div class="pulse-dot"></div>
+                    <span class="status-indicator">Disconnected</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Screen -->
+        <div id="chatScreen" class="screen chat-screen" style="display: none;">
+            <!-- Main Chat Area - #messages IS the scroll container -->
+            <div id="messages" class="messages-container">
+                <!-- Messages will be inserted here by JS -->
+            </div>
+
+            <!-- Typing Indicator (Absolute position) -->
+            <div id="typingIndicator" class="typing-bubble" style="display: none;">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </div>
+
+            <!-- Scroll Button -->
+            <button id="scrollToBottom" class="scroll-btn" style="display: none;">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+
+            <!-- Input Area -->
+            <div class="input-bar">
+                <div class="input-container">
+                    <input id="msgInput" type="text" placeholder="Type a message..." autocomplete="off">
+                    <button id="sendBtn" class="btn-send">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
