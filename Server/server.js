@@ -16,7 +16,8 @@ const wss = new WebSocketServer({ server });
 const PORT = process.env.PORT || 8080;
 
 const ALLOWED_ORIGINS = [
-  "Your Websiet Url and Local host url with poart"
+  "https://anonchatsgs.web.app",
+  "https://anonchatsgs.firebaseapp.com"
 ];
 
 /* ===============================
