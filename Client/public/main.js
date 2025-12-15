@@ -326,7 +326,7 @@ class ChatApplication {
             }
 
             // Determine WebSocket URL
-            let wsUrl = "wss://anonchatsgs-736967676710.europe-west1.run.app";
+            let wsUrl = "Cloud backend url ";
             
             // Try to get URL from configuration
             if (window.ANONCHAT_WS_URL) {
